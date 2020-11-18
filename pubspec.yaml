@@ -30,6 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.1
   flutter_facebook_login: ^3.0.0
+  google_nav_bar: ^3.1.0
+  line_icons: ^0.2.0
+
 
 dev_dependencies:
   flutter_test:
@@ -62,9 +65,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-   - family: WorkSans
+   - family: Montserrat
      fonts:
-       - asset: assets/fonts/WorkSans-VariableFont_wght.ttf
+       - asset: fonts/Montserrat-SemiBold.ttf
   #
   #
   # For details regarding fonts from package dependencies,
