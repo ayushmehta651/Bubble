@@ -19,10 +19,10 @@ class _HomePageState extends State<HomePage> {
     Colors.blue,
     Colors.purple,
   ];
-  List<Text> text = [
-    Text('Feed'),
+  List<Widget> text = [
+    Dashboard(),
     Text('Post'),
-    Text('Likes'),
+    Text('Notifications'),
     Text('Profile'),
 
   ];
@@ -30,9 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Bubble'),
-      ),
+
       body:PageView.builder(
         itemCount: 4,
         controller: controller,
@@ -44,16 +42,17 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context,position){
           return Container(
             color: colors[position],
-            child: Center(child: text[position]),
+            child: text[position],
           );
         },
-      ),
 
+      ),
+      backgroundColor: Colors.black,
       bottomNavigationBar:SafeArea(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
               decoration: BoxDecoration(
-                color: Color(0xFFEBF2FA),
+                color: Colors.black,
                 borderRadius: BorderRadius.all(Radius.circular(100)),
                 boxShadow: [
                   BoxShadow(
@@ -68,11 +67,12 @@ class _HomePageState extends State<HomePage> {
               child: GNav(
                 gap: 8,
                 curve: Curves.fastOutSlowIn,
-                activeColor: Color(0xFFEBF2FA),
+                activeColor: Colors.black,
+                color: Colors.white,
                 iconSize: 25,
                 padding: EdgeInsets.symmetric(horizontal: 20 , vertical : 5),
                 duration: Duration(milliseconds: 800),
-                tabBackgroundColor: Colors.amber,
+                tabBackgroundColor: Colors.white,
                 tabs: [
                   GButton(
                     icon: LineIcons.home,
@@ -91,8 +91,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GButton(
                     icon: LineIcons.user,
-
-                    text: 'Profile',
+                    text: 'Profile'
                   ),
 
                 ],
@@ -111,3 +110,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
