@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'Posts.dart';
@@ -33,65 +34,83 @@ class _DashboardState extends State<Dashboard> {
   ];
   Widget _postTemplate(Posts post){
     return(
-      Card(
-        child: ListTile(
-          leading: CircleAvatar(
-                    backgroundImage: NetworkImage('${post.img}'),
-                    radius: 25,
-                  ),
-            title: Padding(
-              padding: const EdgeInsets.only(top:10.0),
-              child: Row(
-                children: [
-                  Text('${post.author} ',style: TextStyle(
-                    fontSize: 20
-                  ),),
-                  Text('@${post.handle}',style: TextStyle(
-                    color: Colors.grey
-                  ),)
-                ],
-              ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top:8.0),
-              child: Column(
-                children: [
-                  Text('${post.post}',style: TextStyle(
-                    fontSize:17,
-                  ),),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon:post.liked?Icon(LineIcons.heart,color: Colors.red,):Icon(LineIcons.heart_o),
-                        onPressed: (){
-                          setState(() {
-                            post.liked = !post.liked;
-                            if(post.liked)
-                              post.likes++;
-                            else
-                              post.likes--;
-                          });
-                        },
 
+        Column(
+          children: [
+
+          Card(
+            child: ListTile(
+              leading: CircleAvatar(
+                        backgroundImage: NetworkImage('${post.img}'),
+                        radius: 25,
                       ),
-
-                      Text('${post.likes}'),
-
-
+                title: Padding(
+                  padding: const EdgeInsets.only(top:10.0),
+                  child: Row(
+                    children: [
+                      Text('${post.author} ',style: TextStyle(
+                        fontSize: 20
+                      ),),
+                      Text('@${post.handle}',style: TextStyle(
+                        color: Colors.grey
+                      ),)
                     ],
                   ),
-                  Divider(
-                    color: Colors.grey,
-                    height: 1,
-                  ),
-                ],
-              ),
-            ),
-            trailing: _chipTemplate('${post.tag}'),
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top:8.0),
+                  child: Column(
+                    children: [
+                      Text('${post.post}',style: TextStyle(
+                        fontSize:17,
+                      ),),
+                      Padding(
+                        padding: const EdgeInsets.only(top:8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image(
+                            image: NetworkImage('https://i.pinimg.com/originals/cc/18/8c/cc188c604e58cffd36e1d183c7198d21.jpg',
 
-          ),
-        )
-      );
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon:post.liked?Icon(LineIcons.heart,color: Colors.red,):Icon(LineIcons.heart_o),
+                            onPressed: (){
+                              setState(() {
+                                post.liked = !post.liked;
+                                if(post.liked)
+                                  post.likes++;
+                                else
+                                  post.likes--;
+                              });
+                            },
+
+                          ),
+
+                          Text('${post.likes}'),
+
+
+                        ],
+                      ),
+                      Divider(
+                        color: Colors.grey,
+                        height: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                trailing: _chipTemplate('${post.tag}'),
+
+              ),
+            )
+
+      ],
+    )
+    );
   }
   @override
   Widget build(BuildContext context) {
@@ -130,16 +149,33 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
           ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: chips.map((chips) => _chipTemplate(chips)).toList(),
-              ),
-              Column(
-                children: posts.map((post) => _postTemplate(post)).toList()
-              )
-            ],
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: chips.map((chips) => _chipTemplate(chips)).toList(),
+                ),
+
+                    SizedBox(
+                      height: 642,
+                      width: 400,
+                      child: Container(
+
+
+                        child: ListView.builder(
+                          itemCount: posts.length,
+                          itemBuilder: (
+                            context,index
+                          ){
+                            return _postTemplate(posts[index]);
+                          }
+                        ),
+                      ),
+                    ),
+
+              ],
+            ),
           )
         ],
       ),
