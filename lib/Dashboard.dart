@@ -14,7 +14,7 @@ class _DashboardState extends State<Dashboard> {
   List<String> chips = [
     'All',
     'General',
-    'Discussion',
+    'Lost & Found',
     'Polling',
     'Travel'
   ];
@@ -28,7 +28,7 @@ class _DashboardState extends State<Dashboard> {
   }
   List<Posts> posts = [
     Posts(post: 'Enjoying a nice summer evening!',author: 'Tim Joe',likes: 32, handle: 'Joey', tag: 'General',liked:false, img : 'https://images.unsplash.com/photo-1508341591423-4347099e1f19?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
-    Posts(post: 'EXAMSSS!! Zzzzzz..' , author: 'Lodu Lalit',likes:50, handle: 'lodu' , tag: 'Discussion',liked:false, img : 'https://memetemplatehouse.com/wp-content/uploads/2020/10/brahma-mishra.jpg'),
+    Posts(post: 'EXAMSSS!! Zzzzzz..' , author: 'Lodu Lalit',likes:50, handle: 'lodu' , tag: 'General',liked:false, img : 'https://memetemplatehouse.com/wp-content/uploads/2020/10/brahma-mishra.jpg'),
     Posts(post: 'Ye Bhi theek hai..' , author: 'Robin' ,likes:45, handle:'Roby',tag:'General' ,liked:false, img :'https://in.bmscdn.com/content-buzz/2020/10/priyanshu-painyuli-featured.jpg'),
     Posts(post: 'Gaadi nikaalo Maqbool!' , author : 'Kaleen Tripathi' ,likes:123, handle:'Kaleeen',tag:'travel', liked:false, img:'https://images.firstpost.com/wp-content/uploads/2018/11/mirzapur-3801.jpg')
   ];
