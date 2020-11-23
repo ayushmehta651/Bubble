@@ -30,6 +30,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Image.asset('assets/images/banner_white.png'),
+        ),
+        leadingWidth: 100,
+        actions: [
+          IconButton(
+            icon: Icon(LineIcons.search),
+            onPressed: (){},
+          ),
+          SizedBox(width: 16,)
+        ],
+      ),
 
       body:PageView.builder(
         itemCount: 4,
