@@ -1,3 +1,4 @@
+import './browse.dart';
 import 'package:Bubble/custom-widgets/activityCard.dart';
 import 'package:Bubble/custom-widgets/generalCard.dart';
 import 'package:Bubble/custom-widgets/lostAndFound.dart';
@@ -73,7 +74,9 @@ class _DashboardState extends State<Dashboard> {
         actions: [
           IconButton(
             icon: Icon(LineIcons.search),
-            onPressed: (){},
+            onPressed: () {
+              BrowseApp();
+            },
           ),
         ],
       ),
