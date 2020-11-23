@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'models/Post.dart';
+import 'package:line_icons/line_icons.dart';
+
 
 class Dashboard extends StatefulWidget {
   @override
@@ -60,6 +62,21 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Image.asset('assets/images/banner_white.png'),
+        ),
+        leadingWidth: 100,
+        actions: [
+          IconButton(
+            icon: Icon(LineIcons.search),
+            onPressed: (){},
+          ),
+        ],
+      ),
       backgroundColor: Color(0xFFEBF2FA),
       body:Column(
 
@@ -76,7 +93,7 @@ class _DashboardState extends State<Dashboard> {
                   ChoiceChip(
                     label: Text('All'),
                     labelStyle: TextStyle(
-                      color: Colors.white
+                      color: Colors.white,
                     ),
                     selected: true,
                     shape: RoundedRectangleBorder(
@@ -87,9 +104,11 @@ class _DashboardState extends State<Dashboard> {
                         )
                     ),
                     elevation: 2,
-                    selectedColor: Colors.black,
+                    selectedColor: Colors.blue,
                   ),
-                  SizedBox(width: 16,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   ChoiceChip(
                     labelStyle: TextStyle(
                         color: Colors.white
@@ -106,8 +125,9 @@ class _DashboardState extends State<Dashboard> {
                     elevation: 2,
                     selectedColor: Colors.yellow[900],
                   ),
-                  SizedBox(width: 16,),
-
+                  SizedBox(
+                    width: 10,
+                  ),
                   ChoiceChip(
                     labelStyle: TextStyle(
                         color: Colors.white
@@ -124,7 +144,9 @@ class _DashboardState extends State<Dashboard> {
                     elevation: 2,
                     selectedColor: Colors.green,
                   ),
-                  SizedBox(width: 16,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   ChoiceChip(
                     labelStyle: TextStyle(
                         color: Colors.white
