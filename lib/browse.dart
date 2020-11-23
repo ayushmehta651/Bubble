@@ -129,7 +129,7 @@ class _BrowseAppState extends State<BrowseApp> {
                           borderRadius: BorderRadius.circular(20.0),
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AssetImage("assets/images/4.jpg"),
+                            image: AssetImage("assets/images/4.jpeg"),
                           ),
                         ),
                         child: Align(
@@ -168,7 +168,7 @@ Widget imageCard(image, title) {
         borderRadius: BorderRadius.circular(20.0),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: AssetImage("assets/images/$image.jpg"),
+          image: AssetImage("assets/images/$image.jpeg"),
         ),
       ),
       child: Align(

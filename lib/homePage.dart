@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import './Dashboard.dart';
+import './browse.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,14 +16,16 @@ class _HomePageState extends State<HomePage> {
 
   List<Color> colors = [
     Colors.amber,
+    Colors.yellow,
     Colors.red,
     Colors.blue,
     Colors.purple,
   ];
   List<Widget> text = [
     Dashboard(),
+    BrowseApp(),
     Text('Post'),
-    Text('Notifications'),
+    Text('Alerts'),
     Text('Profile'),
 
   ];
@@ -33,7 +36,7 @@ class _HomePageState extends State<HomePage> {
 
 
       body:PageView.builder(
-        itemCount: 4,
+        itemCount: 5,
         controller: controller,
         onPageChanged: (page){
           setState(() {
@@ -81,6 +84,11 @@ class _HomePageState extends State<HomePage> {
                     text: 'Feed',
                   ),
                   GButton(
+                    icon: LineIcons.search,
+
+                    text: 'Browse',
+                  ),
+                  GButton(
                     icon: LineIcons.plus_circle,
 
                     text: 'Post',
@@ -88,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                   GButton(
                     icon: LineIcons.bell,
 
-                    text: 'Notifications',
+                    text: 'Alerts',
                   ),
                   GButton(
                     icon: LineIcons.user,
