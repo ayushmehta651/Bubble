@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-
-
 
 class BrowseApp extends StatefulWidget {
   @override
@@ -36,13 +33,13 @@ class _BrowseAppState extends State<BrowseApp> {
             },
             icon: themeSwitch
                 ? Icon(
-              Icons.brightness_3,
-              color: themeSwitch ? Color(0XFFEBF2FA) : Colors.grey[850],
-            )
+                    Icons.brightness_3,
+                    color: themeSwitch ? Color(0XFFEBF2FA) : Colors.grey[850],
+                  )
                 : Icon(
-              Icons.wb_sunny,
-              color: themeSwitch ? Color(0XFFEBF2FA): Colors.grey[850],
-            ),
+                    Icons.wb_sunny,
+                    color: themeSwitch ? Color(0XFFEBF2FA) : Colors.grey[850],
+                  ),
           ),
         ),
         body: SafeArea(
@@ -58,15 +55,19 @@ class _BrowseAppState extends State<BrowseApp> {
                       bottom: Radius.circular(30.0),
                     ),
                   ),
-                  padding: EdgeInsets.only(left:16.0,right:16.0),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-
                       Container(
                         padding: EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.0),
+                          borderRadius: BorderRadius.only(
+
+                              topRight: Radius.circular(25.0),
+                              bottomLeft: Radius.circular(25.0),
+                              bottomRight: Radius.circular(25.0),),
                         ),
                         child: TextField(
                           decoration: InputDecoration(
@@ -77,12 +78,10 @@ class _BrowseAppState extends State<BrowseApp> {
                             ),
                             hintText: "Search",
                             hintStyle:
-                            TextStyle(color: Colors.grey, fontSize: 15.0),
+                                TextStyle(color: Colors.grey, fontSize: 15.0),
                           ),
                         ),
                       ),
-
-
                       SizedBox(
                         height: 10.0,
                       )
