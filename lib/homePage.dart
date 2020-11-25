@@ -5,6 +5,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import './Dashboard.dart';
 import './browse.dart';
+import './instagram_ui_clone/instagram_main.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     Dashboard(),
     BrowseApp(),
     Text('Post'),
-    Text('Alerts'),
+    InstagramMain(),
     Text('Profile'),
 
   ];

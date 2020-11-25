@@ -126,7 +126,7 @@ class LostAndFoundPost extends StatelessWidget {
 
                       // Image of Post
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.only(topRight: Radius.circular(20) , bottomLeft:Radius.circular(20), bottomRight:Radius.circular(20)),
                         child: Image(
                           image: NetworkImage(post.imageUrl),
                           fit: BoxFit.fitWidth,

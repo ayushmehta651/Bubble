@@ -71,14 +71,7 @@ class _DashboardState extends State<Dashboard> {
           child: Image.asset('assets/images/banner_white.png'),
         ),
         leadingWidth: 100,
-        actions: [
-          IconButton(
-            icon: Icon(LineIcons.search),
-            onPressed: () {
-              BrowseApp();
-            },
-          ),
-        ],
+
       ),
       backgroundColor: Color(0xFFEBF2FA),
       body:Column(
@@ -179,7 +172,7 @@ class _DashboardState extends State<Dashboard> {
 
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height-165,
+            height: MediaQuery.of(context).size.height - 255,
             child: ListView(
               children: [
                 Padding(
