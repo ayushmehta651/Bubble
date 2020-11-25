@@ -1,6 +1,7 @@
 import 'package:Bubble/custom-widgets/activityCard.dart';
 import 'package:Bubble/custom-widgets/generalCard.dart';
 import 'package:Bubble/custom-widgets/lostAndFound.dart';
+import 'package:Bubble/pages/register-acc-page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './homePage.dart';
