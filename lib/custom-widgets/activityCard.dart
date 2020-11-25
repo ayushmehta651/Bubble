@@ -18,7 +18,7 @@ class ActivityCard extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
               children: [
-                // UserDetails and Tag
+                /*UserDetails and Tag*/
                 Row(
                   children: [
                     Expanded(
@@ -52,7 +52,7 @@ class ActivityCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Tag
+                    /*Tag*/
                     Expanded(
                       flex: 2,
                       child: Column(
@@ -65,7 +65,7 @@ class ActivityCard extends StatelessWidget {
                   ],
                 ),
 
-                // Icons and Text
+                /* Icons and Text */
                 Row(
                   children: [
                     Expanded(
@@ -73,11 +73,11 @@ class ActivityCard extends StatelessWidget {
 
                         children: [
 
-                          // Caption
+                          /*Caption*/
                           Text(post.caption,
                           ),
                           SizedBox(height: 16,),
-                          // ActivityName
+                          /*ActivityName*/
                           Row(
                             children: [
                               Icon(
@@ -94,7 +94,7 @@ class ActivityCard extends StatelessWidget {
                           ),
                           SizedBox(height: 16,),
 
-                          // When
+                          /*When*/
                           Row(
                             children: [
                               Icon(Icons.calendar_today,
@@ -107,7 +107,7 @@ class ActivityCard extends StatelessWidget {
                           ),
                           SizedBox(height: 16,),
 
-                          // Where
+                          /*Where*/
                           Row(
                             children: [
                               Icon(Icons.location_pin,
@@ -120,9 +120,9 @@ class ActivityCard extends StatelessWidget {
                           ),
                           SizedBox(height: 16,),
 
-                          // Image of Post
+                          /*Image of Post*/
                           ClipRRect(
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(20) , bottomLeft:Radius.circular(20), bottomRight:Radius.circular(20)),
+                            borderRadius: BorderRadius.circular(15),
                             child: Image(
                               image: NetworkImage(post.imageUrl),
                               fit: BoxFit.fitWidth,
@@ -130,7 +130,7 @@ class ActivityCard extends StatelessWidget {
                           ),
                           SizedBox(height: 16,),
 
-                          // BottomBar - Like and TimeStamp
+                          /*BottomBar - Like and TimeStamp*/
                           Row(
                             children: [
                               Expanded(
@@ -151,7 +151,7 @@ class ActivityCard extends StatelessWidget {
                                 ),
                               ),
 
-                              // TimeStamp
+                              /*TimeStamp*/
                               Expanded(
                                 flex: 5,
                                 child: Column(
