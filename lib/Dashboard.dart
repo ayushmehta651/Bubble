@@ -112,14 +112,7 @@ class _DashboardState extends State<Dashboard> {
           child: Image.asset('assets/images/banner_white.png'),
         ),
         leadingWidth: 100,
-        actions: [
-          IconButton(
-            icon: Icon(LineIcons.search),
-            onPressed: () {
-              BrowseApp();
-            },
-          ),
-        ],
+
       ),
       backgroundColor: Color(0xFFEBF2FA),
       body: postList(),
