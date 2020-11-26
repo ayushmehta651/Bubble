@@ -18,14 +18,12 @@ class _HomePageState extends State<HomePage> {
   List<Color> colors = [
     Colors.amber,
     Colors.yellow,
-    Colors.red,
     Colors.blue,
     Colors.purple,
   ];
   List<Widget> text = [
     Dashboard(),
     BrowseApp(),
-    Text('Post'),
     InstagramMain(),
     Text('Profile'),
 
@@ -88,11 +86,6 @@ class _HomePageState extends State<HomePage> {
                     icon: LineIcons.search,
 
                     text: 'Browse',
-                  ),
-                  GButton(
-                    icon: LineIcons.plus_circle,
-
-                    text: 'Post',
                   ),
                   GButton(
                     icon: LineIcons.bell,

@@ -1,15 +1,13 @@
-import 'package:Bubble/custom-widgets/activityCard.dart';
-import 'package:Bubble/custom-widgets/generalCard.dart';
-import 'package:Bubble/custom-widgets/lostAndFound.dart';
-import 'package:Bubble/pages/register-acc-page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import './homePage.dart';
 import 'homePage.dart';
 import 'models/Post.dart';
 import './pages/register-acc-page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main(){
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(myApp());
 }
 
@@ -22,6 +20,7 @@ class _myAppState extends State<myApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // Define the default brightness and colors.
         brightness: Brightness.light,
@@ -43,8 +42,6 @@ class _myAppState extends State<myApp> {
         'home':(context)=> RegisterWidget(),
       },
       initialRoute: 'home',
-
     );
   }
 }
-

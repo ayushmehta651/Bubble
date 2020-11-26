@@ -107,7 +107,7 @@ class RegisterWidget extends StatelessWidget {
               SizedBox(height: 40,),
               FlatButton.icon(
                 onPressed: (){
-                  (context)=>HomePage();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
                 },
                 icon: Icon(Icons.arrow_right),
                 label: Text("Get Started"),
