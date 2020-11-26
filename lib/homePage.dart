@@ -1,4 +1,5 @@
 import 'package:Bubble/Dashboard.dart';
+import 'package:Bubble/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -25,93 +26,76 @@ class _HomePageState extends State<HomePage> {
     Dashboard(),
     BrowseApp(),
     InstagramMain(),
-    Text('Profile'),
-
+    Profile(),
   ];
   PageController controller = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
-      body:PageView.builder(
+      body: PageView.builder(
         itemCount: 5,
         controller: controller,
-        onPageChanged: (page){
+        onPageChanged: (page) {
           setState(() {
             _index = page;
           });
         },
-        itemBuilder: (context,position){
+        itemBuilder: (context, position) {
           return Container(
             color: colors[position],
             child: text[position],
           );
         },
-
       ),
       backgroundColor: Colors.black,
-      bottomNavigationBar:SafeArea(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                boxShadow: [
-                  BoxShadow(
-                    spreadRadius: -10,
-                    blurRadius: 60,
-                    color: Colors.black.withOpacity(0.4),
-                    offset: Offset(0,25)
-                  )
-                ],
-
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: -10,
+                  blurRadius: 60,
+                  color: Colors.black.withOpacity(0.4),
+                  offset: Offset(0, 25))
+            ],
+          ),
+          child: GNav(
+            gap: 8,
+            curve: Curves.fastOutSlowIn,
+            activeColor: Colors.black,
+            color: Colors.white,
+            iconSize: 25,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            duration: Duration(milliseconds: 800),
+            tabBackgroundColor: Colors.white,
+            tabs: [
+              GButton(
+                icon: LineIcons.home,
+                text: 'Feed',
               ),
-              child: GNav(
-                gap: 8,
-                curve: Curves.fastOutSlowIn,
-                activeColor: Colors.black,
-                color: Colors.white,
-                iconSize: 25,
-                padding: EdgeInsets.symmetric(horizontal: 20 , vertical : 5),
-                duration: Duration(milliseconds: 800),
-                tabBackgroundColor: Colors.white,
-                tabs: [
-                  GButton(
-                    icon: LineIcons.home,
-
-                    text: 'Feed',
-                  ),
-                  GButton(
-                    icon: LineIcons.search,
-
-                    text: 'Browse',
-                  ),
-                  GButton(
-                    icon: LineIcons.bell,
-
-                    text: 'Alerts',
-                  ),
-                  GButton(
-                    icon: LineIcons.user,
-                    text: 'Profile'
-                  ),
-
-                ],
-                selectedIndex: _index,
-                onTabChange: (index){
-                  setState(() {
-                    _index = index;
-                  });
-                  controller.jumpToPage(index);
-                  },
-
-
+              GButton(
+                icon: LineIcons.search,
+                text: 'Browse',
               ),
-            ),
+              GButton(
+                icon: LineIcons.bell,
+                text: 'Alerts',
+              ),
+              GButton(icon: LineIcons.user, text: 'Profile'),
+            ],
+            selectedIndex: _index,
+            onTabChange: (index) {
+              setState(() {
+                _index = index;
+              });
+              controller.jumpToPage(index);
+            },
+          ),
+        ),
       ),
     );
   }
 }
-
-
