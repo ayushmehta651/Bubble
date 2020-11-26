@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../homePage.dart';
 
 class RegisterWidget extends StatelessWidget {
   @override
@@ -60,7 +61,8 @@ class RegisterWidget extends StatelessWidget {
                               size: 20,
                             ),
                             color: Theme.of(context).primaryColor,
-                            onPressed: () {},
+                            onPressed: () {
+                            },
                           ),
                         ),
                       ),
@@ -105,7 +107,7 @@ class RegisterWidget extends StatelessWidget {
               SizedBox(height: 40,),
               FlatButton.icon(
                 onPressed: (){
-
+                  (context)=>HomePage();
                 },
                 icon: Icon(Icons.arrow_right),
                 label: Text("Get Started"),

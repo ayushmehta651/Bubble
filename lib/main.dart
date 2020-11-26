@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import './homePage.dart';
 import 'homePage.dart';
 import 'models/Post.dart';
+import './pages/register-acc-page.dart';
 
 void main(){
   runApp(myApp());
@@ -39,7 +40,7 @@ class _myAppState extends State<myApp> {
         ),
       ),
       routes: {
-        'home':(context)=> HomePage(),
+        'home':(context)=> RegisterWidget(),
       },
       initialRoute: 'home',
 
