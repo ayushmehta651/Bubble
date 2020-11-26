@@ -15,7 +15,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final image = new TextEditingController();
+  String image;
   final username = new TextEditingController();
   final phone = new TextEditingController();
   final password = new TextEditingController();
@@ -37,9 +37,9 @@ class _ProfileState extends State<Profile> {
     var downloadurl = await (await task.whenComplete(() => print('hello')))
         .ref
         .getDownloadURL();
-    image.text = downloadurl;
+    image = downloadurl;
     print(downloadurl);
-    print(image.text);
+    print(image);
   }
 
   bool show = true;
@@ -61,12 +61,12 @@ class _ProfileState extends State<Profile> {
           password.text = element.data()['password'];
           phone.text = element.data()['phone'];
           hobbies.text = element.data()['hobbies'];
-          image.text = element.data()['image'];
+          image = element.data()['image'];
           print(username.text);
           print(password.text);
           print(phone.text);
           print(hobbies.text);
-          print(image.text);
+          print(image);
         });
       } else {
         print('Data is Loading');
@@ -97,199 +97,231 @@ class _ProfileState extends State<Profile> {
           ),
         ],
       ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: Container(
-          padding: EdgeInsets.only(left: 16.0, top: 25.0, right: 16.0),
-          child: ListView(
-            children: [
-              Text(
-                'Edit Profile',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Montserrat-SemiBold',
-                  color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              GestureDetector(
-                onTap: () {
-                  getimage();
-                },
-                child: CircleAvatar(
-                  backgroundColor:
-                      darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                  radius: 90,
-                  child: ClipOval(
-                    child: SizedBox(
-                      height: 170,
-                      width: 170,
-                      child: (_image != null)
-                          ? Image.file(_image, fit: BoxFit.fill)
-                          : Image.network(image.text, fit: BoxFit.fill),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 35,
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 35.0),
-                child: TextField(
-                  cursorColor: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                  controller: username,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: "Full name",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat-SemiBold',
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                    ),
-                    hintText: username.text,
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                      fontFamily: 'Montserrat-SemiBold',
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 35.0),
-                child: TextField(
-                  cursorColor: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                  controller: phone,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: "Number",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat-SemiBold',
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                    ),
-                    hintText: phone.text,
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                      fontFamily: 'Montserrat-SemiBold',
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 20.0),
-                child: TextField(
-                  cursorColor: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                  controller: password,
-                  obscureText: show,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.remove_red_eye),
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                      onPressed: () {
-                        setState(() {
-                          show = !show;
-                        });
-                      },
-                    ),
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: "Password",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat-SemiBold',
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                    ),
-                    hintText: password.text,
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                      fontFamily: 'Montserrat-SemiBold',
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20.0),
-                child: TextField(
-                  cursorColor: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                  controller: hobbies,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: "Interests",
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat-SemiBold',
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                    ),
-                    hintText: hobbies.text,
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                      fontFamily: 'Montserrat-SemiBold',
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('account').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Text('no data');
+            }
+            return GestureDetector(
+              onTap: () {
+                FocusScope.of(context).unfocus();
+              },
+              child: Container(
+                padding: EdgeInsets.only(left: 16.0, top: 25.0, right: 16.0),
+                child: ListView(
                   children: [
-                    OutlineButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 50.0),
-                      onPressed: () {},
-                      child: Text(
-                        'CANCEL',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color:
-                              darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                          fontFamily: 'Montserrat-SemiBold',
-                        ),
+                    Text(
+                      'Edit Profile',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Montserrat-SemiBold',
+                        color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
                       ),
                     ),
-                    RaisedButton(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                      onPressed: () {
-                        uploadpost();
-                        ok(username.text, password.text, phone.text,
-                            hobbies.text, image.text);
+                    SizedBox(
+                      height: 15,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        getimage();
                       },
-                      child: Text(
-                        'SAVE',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: darktheme ? Colors.grey[850] : Colors.white,
-                          fontFamily: 'Montserrat-SemiBold',
+                      child: CircleAvatar(
+                        backgroundColor:
+                            darktheme ? Color(0xffebf2fa) : Colors.grey[850],
+                        radius: 90,
+                        child: ClipOval(
+                          child: SizedBox(
+                            height: 170,
+                            width: 170,
+                            child: (_image != null)
+                                ? Image.file(_image, fit: BoxFit.fill)
+                                : Image.network(
+                                    snapshot.data.documents[0]['image'],
+                                    fit: BoxFit.fill),
+                          ),
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 35.0),
+                      child: TextField(
+                        cursorColor:
+                            darktheme ? Color(0xffebf2fa) : Colors.grey[850],
+                        controller: username,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 3),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Full name",
+                          labelStyle: TextStyle(
+                            fontFamily: 'Montserrat-SemiBold',
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                          ),
+                          hintText: snapshot.data.documents[0]['username'],
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                            fontFamily: 'Montserrat-SemiBold',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 35.0),
+                      child: TextField(
+                        cursorColor:
+                            darktheme ? Color(0xffebf2fa) : Colors.grey[850],
+                        controller: phone,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 3),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Number",
+                          labelStyle: TextStyle(
+                            fontFamily: 'Montserrat-SemiBold',
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                          ),
+                          hintText: snapshot.data.documents[0]['phone'],
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                            fontFamily: 'Montserrat-SemiBold',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 20.0),
+                      child: TextField(
+                        cursorColor:
+                            darktheme ? Color(0xffebf2fa) : Colors.grey[850],
+                        controller: password,
+                        obscureText: show,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.remove_red_eye),
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                            onPressed: () {
+                              setState(() {
+                                show = !show;
+                              });
+                            },
+                          ),
+                          contentPadding: EdgeInsets.only(bottom: 3),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Password",
+                          labelStyle: TextStyle(
+                            fontFamily: 'Montserrat-SemiBold',
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                          ),
+                          hintText: snapshot.data.documents[0]['password'],
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                            fontFamily: 'Montserrat-SemiBold',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: TextField(
+                        cursorColor:
+                            darktheme ? Color(0xffebf2fa) : Colors.grey[850],
+                        controller: hobbies,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 3),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Interests",
+                          labelStyle: TextStyle(
+                            fontFamily: 'Montserrat-SemiBold',
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                          ),
+                          hintText: snapshot.data.documents[0]['hobbies'],
+                          hintStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                            fontFamily: 'Montserrat-SemiBold',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          OutlineButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 50.0),
+                            onPressed: () {},
+                            child: Text(
+                              'CANCEL',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: darktheme
+                                    ? Color(0xffebf2fa)
+                                    : Colors.grey[850],
+                                fontFamily: 'Montserrat-SemiBold',
+                              ),
+                            ),
+                          ),
+                          RaisedButton(
+                            padding: EdgeInsets.symmetric(horizontal: 50.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            color: darktheme
+                                ? Color(0xffebf2fa)
+                                : Colors.grey[850],
+                            onPressed: () {
+                              uploadpost();
+                              ok(username.text, password.text, phone.text,
+                                  hobbies.text, image);
+                            },
+                            child: Text(
+                              'SAVE',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color:
+                                    darktheme ? Colors.grey[850] : Colors.white,
+                                fontFamily: 'Montserrat-SemiBold',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
+              ),
+            );
+          }),
     );
   }
 
@@ -303,10 +335,10 @@ class _ProfileState extends State<Profile> {
       'password': password.text,
       'phone': phone.text,
       'hobbies': hobbies.text,
-      'image': image.text,
+      'image': image,
     }).then((value) {
       print(username.text);
-      print(image.text);
+      print(image);
     });
   }
 }
