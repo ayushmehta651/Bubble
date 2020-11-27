@@ -39,7 +39,7 @@ class _myAppState extends State<myApp> {
         ),
       ),
       routes: {
-        'home':(context)=> RegisterWidget(),
+        'home':(context)=> HomePage(),
       },
       initialRoute: 'home',
     );

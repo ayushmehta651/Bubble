@@ -6,7 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'custom-chip.dart';
 
 class GeneralCard extends StatelessWidget {
-  Post2 post;
+  Post post;
   Function likeClicked;
   Color primaryColor = Color(0xFF3A539B);
 

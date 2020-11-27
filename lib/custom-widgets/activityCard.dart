@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 class ActivityCard extends StatelessWidget {
-  Post2 post;
+  Post post;
   Function likeClicked;
 
   Color primaryColor = Colors.yellow[900];

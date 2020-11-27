@@ -39,6 +39,7 @@ dependencies:
   random_string: ^2.1.0
   camera: ^0.5.8+11
   cached_network_image: ^2.3.3
+  fab_circular_menu: ^1.0.0 # Animated Floating Action Button
 
 dev_dependencies:
   flutter_test:

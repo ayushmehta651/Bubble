@@ -1,3 +1,9 @@
+import 'package:Bubble/pages/posting-pages/general-posting-screen.dart';
+import 'package:Bubble/pages/posting-pages/posting-screen-activity.dart';
+import 'package:Bubble/pages/posting-pages/posting-screen-lf.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
+import 'package:flutter/cupertino.dart';
+
 import './browse.dart';
 import 'models/Post.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +36,7 @@ class _DashboardState extends State<Dashboard> {
             child: StreamBuilder(
               stream: FirebaseFirestore.instance.collection("post").snapshots(),
               builder: (context, snapshot) {
+
                 if (snapshot.data == null)
                   return Center(child: CircularProgressIndicator());
                 return Container(
@@ -38,12 +45,22 @@ class _DashboardState extends State<Dashboard> {
                     itemCount: snapshot.data.docs.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return PostTile(
+
+                      return giveMeWidget(Post(
+                        caption: snapshot.data.docs[index].data()['caption'],
+                        userName: snapshot.data.docs[index].data()['userName'],
+                        userHandle: snapshot.data.docs[index].data()['userHandle'],
+                        activityName: snapshot.data.docs[index].data()['activityName'],
+                        when: snapshot.data.docs[index].data()['when'],
+                        where: snapshot.data.docs[index].data()['where'],
+                        tagName: snapshot.data.docs[index].data()['tagName'],
+                        avatarUrl: snapshot.data.docs[index].data()['avatarURL'],
                         imageUrl: snapshot.data.docs[index].data()['imageUrl'],
-                        destination:
-                            snapshot.data.docs[index].data()['destination'],
-                        work: snapshot.data.docs[index].data()['work'],
-                      );
+                        likes: int.parse(snapshot.data.docs[index].data()['likes']) ,
+                        // liked: snapshot.data.docs[index].data()['liked'],
+                        liked: false,
+                        timeStamp: snapshot.data.docs[index].data()['timeStamp'],
+                      ));
                     },
                   ),
                 );
@@ -55,52 +72,6 @@ class _DashboardState extends State<Dashboard> {
     ));
   }
 
-  // Back-end guys fetch data and put it here
-  List<Post2> mPosts = [
-    Post2(
-        caption: "This is a caption",
-        userName: "Ajay Galagali",
-        userHandle: "astro",
-        activityName:
-            "If non-null, the itemExtent forces the children to have the given extent in the scroll direction. Specifying an itemExtent is more efficient than letting the children determine their own extent because the scrolling machinery can make use of the foreknowledge of the children's extent to save work, for example when the scroll position changes drastically.",
-        when: "Yesterday",
-        where: "ISE Dept",
-        tagName: "L&F",
-        avatarUrl:
-            "https://lh3.googleusercontent.com/ogw/ADGmqu8V283QJ4mY86zg6eHzkXjFaS77U-rpadqu2-p2Ng=s32-c-mo",
-        imageUrl: "https://i.ytimg.com/vi/hF_LjTUvP-U/maxresdefault.jpg",
-        likes: 20,
-        liked: true,
-        timeStamp: "moments ago"),
-    Post2(
-        userName: "Ajay Galagali",
-        userHandle: "astro",
-        activityName:
-            "You will need to check your return from database, to verify if it's null. By the error, Flutter is indicating that you are working with null values. As @ShubhamGupta mentioned, please, add a exception treatment to your code, to verify better the error",
-        when: "Jan 1st",
-        caption:
-            "You will need to check your return from database, to verify if it's null. By the error, Flutter is indicating that you are working with null values. As @ShubhamGupta mentioned, please, add a exception treatment to your code, to verify better the error",
-        where: "Ooty",
-        tagName: "Activity",
-        avatarUrl:
-            "https://lh3.googleusercontent.com/ogw/ADGmqu8V283QJ4mY86zg6eHzkXjFaS77U-rpadqu2-p2Ng=s32-c-mo",
-        imageUrl: "https://i.ytimg.com/vi/hF_LjTUvP-U/maxresdefault.jpg",
-        likes: 20,
-        liked: true,
-        timeStamp: "moments ago"),
-    Post2(
-        userName: "Ajay Galagali",
-        userHandle: "astro",
-        caption:
-            "You will need to check your return from database, to verify if it's null. By the error, Flutter is indicating that you are working with null values. As @ShubhamGupta mentioned, please, add a exception treatment to your code, to verify better the error",
-        tagName: "General",
-        avatarUrl:
-            "https://lh3.googleusercontent.com/ogw/ADGmqu8V283QJ4mY86zg6eHzkXjFaS77U-rpadqu2-p2Ng=s32-c-mo",
-        imageUrl: "https://i.ytimg.com/vi/hF_LjTUvP-U/maxresdefault.jpg",
-        likes: 20,
-        liked: true,
-        timeStamp: "moments ago"),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,122 +87,63 @@ class _DashboardState extends State<Dashboard> {
       ),
       backgroundColor: Color(0xFFEBF2FA),
       body: postList(),
-      // body: Column(
-      //   children: [
-      //     Padding(
-      //       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
 
-      //       // Tags ChipCards
 
-      //       child: SingleChildScrollView(
-      //         child: Row(
-      //           children: [
-      //             ChoiceChip(
-      //               label: Text('All'),
-      //               labelStyle: TextStyle(
-      //                 color: Colors.white,
-      //               ),
-      //               selected: true,
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.only(
-      //                       topRight: Radius.circular(13),
-      //                       bottomRight: Radius.circular(13),
-      //                       bottomLeft: Radius.circular(13))),
-      //               elevation: 2,
-      //               selectedColor: Colors.blue,
-      //             ),
-      //             SizedBox(
-      //               width: 10,
-      //             ),
-      //             ChoiceChip(
-      //               labelStyle: TextStyle(color: Colors.white),
-      //               label: Text('Activity'),
-      //               selected: true,
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.only(
-      //                       topRight: Radius.circular(13),
-      //                       bottomRight: Radius.circular(13),
-      //                       bottomLeft: Radius.circular(13))),
-      //               elevation: 2,
-      //               selectedColor: Colors.yellow[900],
-      //             ),
-      //             SizedBox(
-      //               width: 10,
-      //             ),
-      //             ChoiceChip(
-      //               labelStyle: TextStyle(color: Colors.white),
-      //               label: Text('Poll'),
-      //               selected: true,
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.only(
-      //                       topRight: Radius.circular(13),
-      //                       bottomRight: Radius.circular(13),
-      //                       bottomLeft: Radius.circular(13))),
-      //               elevation: 2,
-      //               selectedColor: Colors.green,
-      //             ),
-      //             SizedBox(
-      //               width: 10,
-      //             ),
-      //             ChoiceChip(
-      //               labelStyle: TextStyle(color: Colors.white),
-      //               label: Text('L&F'),
-      //               selected: true,
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.only(
-      //                       topRight: Radius.circular(13),
-      //                       bottomRight: Radius.circular(13),
-      //                       bottomLeft: Radius.circular(13))),
-      //               elevation: 2,
-      //               onSelected: (selected) {
-      //                 // print("isSelected->$isSelected");
-      //                 // _selected = !_selected;
-      //               },
-      //               selectedColor: Colors.redAccent,
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
+      floatingActionButton: FabCircularMenu(
+        // ringDiameter: MediaQuery.of(context).size.width * 0.5,
+        // ringWidth: MediaQuery.of(context).size.width * 0.5,
+        ringColor: Colors.black,
+        fabOpenColor: Colors.white,
+        fabOpenIcon: Icon(Icons.add, color: Colors.white,),
+        children: [
 
-      //     // Populating Posts
-
-      //     SizedBox(
-      //       width: MediaQuery.of(context).size.width,
-      //       height: MediaQuery.of(context).size.height - 165,
-      //       child: ListView(
-      //         children: [
-      //           Padding(
-      //             padding: EdgeInsets.all(8),
-      //             child: Column(
-      //               children: mPosts.map((e) => giveMeWidget(e)).toList(),
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
-
-      //To Add post
-      floatingActionButton: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
+          /*General Post*/
+          FlatButton(
+            child: Text("General", style: TextStyle(color: Colors.white),),
             onPressed: () {
+              print("gen");
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PostingScreen()));
+                  MaterialPageRoute(builder: (context) => GeneralPostingScreen()));
             },
-            child: Icon(Icons.add),
-          )
+          ),
+
+          /*Lost and found post*/
+          FlatButton(
+            child: Text("L&F", style: TextStyle(color: Colors.white),),
+            onPressed: () {
+              print("lf");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LostFoundPostingScreen()));
+            },
+          ),
+
+          /*Activity*/
+          FlatButton(
+            child: Text("Activity", style: TextStyle(color: Colors.white),),
+            onPressed: () {
+              print("lf");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ActivityPostingScreen()));
+            },
+          ),
+
+          /*Poll*/
+          FlatButton(
+            child: Text("Poll", style: TextStyle(color: Colors.white),),
+            onPressed: (){
+
+            },
+          ),
+
         ],
       ),
+
+
     );
   }
 
   // Returns card template according to tag of post
-  Widget giveMeWidget(Post2 curPost) {
+  Widget giveMeWidget(Post curPost) {
     if (curPost.tagName == "Activity") {
       return ActivityCard(
         post: curPost,
@@ -248,47 +160,4 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-class PostTile extends StatelessWidget {
-  String imageUrl, destination, work;
-  PostTile(
-      {@required this.imageUrl,
-      @required this.destination,
-      @required this.work});
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0),
-      child: Column(
-        children: [
-          Card(
-              child: ClipRRect(
-                  child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ))),
-          Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    destination,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 7),
-                  Text(
-                    work,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ))
-        ],
-      ),
-    );
-  }
-}

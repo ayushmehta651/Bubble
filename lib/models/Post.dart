@@ -1,4 +1,4 @@
-class Post2 {
+class Post {
   String caption;
   String userName;
   String userHandle;
@@ -12,7 +12,7 @@ class Post2 {
   bool liked;
   String timeStamp;
 
-  Post2({
+  Post({
     this.caption,
     this.userName,
     this.userHandle,

@@ -6,7 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'custom-chip.dart';
 
 class LostAndFoundPost extends StatelessWidget {
-  Post2 post;
+  Post post;
   Function likeClicked;
 
   LostAndFoundPost({this.post, this.likeClicked});
