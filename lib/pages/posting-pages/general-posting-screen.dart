@@ -99,11 +99,20 @@ class _GeneralPostingScreenState extends State<GeneralPostingScreen> {
         "when": "",
         "where": "",
         "tagName": "General", // get from fab click
-        "avatarUrl": "https://lh3.googleusercontent.com/ogw/ADGmqu8V283QJ4mY86zg6eHzkXjFaS77U-rpadqu2-p2Ng=s192-c-mo", // need to get from auth
+        "avatarUrl": "https://www.bestprintingonline.com/help_resources/Image/Ducky_Head_Web_Low-Res.jpg", // need to get from auth
         "imageUrl": downloadUrl,
         "liked": "false",
         "likes": "0",
-        "timeStamp": "morning" // need to generate here
+        "timeStamp": "morning", // need to generate here
+
+        "option1Text": "-1",
+        "option2Text": "-1",
+        "option3Text": "-1",
+        "option4Text": "-1",
+        "option1Count" : "-1",
+        "option2Count" : "-1",
+        "option3Count" : "-1",
+        "option4Count" : "-1",
       };
 
 

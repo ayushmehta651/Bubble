@@ -8,7 +8,6 @@ import 'custom-chip.dart';
 class LostAndFoundPost extends StatelessWidget {
   Post post;
   Function likeClicked;
-
   LostAndFoundPost({this.post, this.likeClicked});
 
   @override

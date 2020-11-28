@@ -1,4 +1,6 @@
+import 'package:Bubble/custom-widgets/poll-card.dart';
 import 'package:Bubble/pages/posting-pages/general-posting-screen.dart';
+import 'package:Bubble/pages/posting-pages/poll-posting-screen.dart';
 import 'package:Bubble/pages/posting-pages/posting-screen-activity.dart';
 import 'package:Bubble/pages/posting-pages/posting-screen-lf.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
@@ -54,12 +56,23 @@ class _DashboardState extends State<Dashboard> {
                         when: snapshot.data.docs[index].data()['when'],
                         where: snapshot.data.docs[index].data()['where'],
                         tagName: snapshot.data.docs[index].data()['tagName'],
-                        avatarUrl: snapshot.data.docs[index].data()['avatarURL'],
+                        avatarUrl: snapshot.data.docs[index].data()['avatarUrl'],
                         imageUrl: snapshot.data.docs[index].data()['imageUrl'],
                         likes: int.parse(snapshot.data.docs[index].data()['likes']) ,
                         // liked: snapshot.data.docs[index].data()['liked'],
                         liked: false,
                         timeStamp: snapshot.data.docs[index].data()['timeStamp'],
+
+                        option1Text: snapshot.data.docs[index].data()['option1Text'],
+                        option2Text: snapshot.data.docs[index].data()['option2Text'],
+                        option3Text: snapshot.data.docs[index].data()['option3Text'],
+                        option4Text: snapshot.data.docs[index].data()['option4Text'],
+
+                        option1Count: int.parse(snapshot.data.docs[index].data()['option1Count']),
+                        option2Count: int.parse(snapshot.data.docs[index].data()['option2Count']),
+                        option3Count: int.parse(snapshot.data.docs[index].data()['option3Count']),
+                        option4Count: int.parse(snapshot.data.docs[index].data()['option4Count']),
+
                       ));
                     },
                   ),
@@ -101,7 +114,6 @@ class _DashboardState extends State<Dashboard> {
           FlatButton(
             child: Text("General", style: TextStyle(color: Colors.white),),
             onPressed: () {
-              print("gen");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => GeneralPostingScreen()));
             },
@@ -111,7 +123,6 @@ class _DashboardState extends State<Dashboard> {
           FlatButton(
             child: Text("L&F", style: TextStyle(color: Colors.white),),
             onPressed: () {
-              print("lf");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => LostFoundPostingScreen()));
             },
@@ -121,7 +132,6 @@ class _DashboardState extends State<Dashboard> {
           FlatButton(
             child: Text("Activity", style: TextStyle(color: Colors.white),),
             onPressed: () {
-              print("lf");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ActivityPostingScreen()));
             },
@@ -131,7 +141,8 @@ class _DashboardState extends State<Dashboard> {
           FlatButton(
             child: Text("Poll", style: TextStyle(color: Colors.white),),
             onPressed: (){
-
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PollPostingScreen()));
             },
           ),
 
@@ -156,6 +167,8 @@ class _DashboardState extends State<Dashboard> {
       return GeneralCard(
         post: curPost,
       );
+    } else if(curPost.tagName == "Poll"){
+      return PollCard(post: curPost,);
     }
   }
 }
