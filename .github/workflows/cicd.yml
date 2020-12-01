@@ -5,7 +5,7 @@ name: Flutter CI
 on:
   push:
     branches:
-    - dev
+    - pipeline_patch
     
 # on: push    # Default will running for every branch.
     
