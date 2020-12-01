@@ -21,6 +21,8 @@ jobs:
         with:
           flutter-version: '1.12.14'
           channel: 'dev'
+
+      - run: flutter pub upgrade
       - run: flutter pub get
       # run static analys code
       - run: flutter  analyze
