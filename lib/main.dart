@@ -4,6 +4,7 @@ import 'homePage.dart';
 import 'models/Post.dart';
 import './pages/register-acc-page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import './login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,7 @@ class _myAppState extends State<myApp> {
         ),
       ),
       routes: {
-        'home':(context)=> RegisterWidget(),
+        'home':(context)=> Login(),
       },
       initialRoute: 'home',
     );

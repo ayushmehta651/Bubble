@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
-        itemCount: 5,
+        itemCount: 4,
         controller: controller,
         onPageChanged: (page) {
           setState(() {
