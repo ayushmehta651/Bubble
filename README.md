@@ -1,5 +1,5 @@
 # Bubble
 
-Flutter app to connect travelers
+Flutter app to connect travellers
 > Under development
 
