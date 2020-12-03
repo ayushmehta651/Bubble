@@ -49,7 +49,10 @@ class _PollCardState extends State<PollCard> {
       widget.per4 = "${fourPercentage.round()}%";
 
     });
-    print("1 % -> ${onePercentage}");
+    print("1 % -> ${onePercentage.round()}");
+    print("2 % -> ${twoPercentage.round()}");
+    print("3 % -> ${threePercentage.round()}");
+    print("4 % -> ${fourPercentage.round()}");
   }
 
   @override
