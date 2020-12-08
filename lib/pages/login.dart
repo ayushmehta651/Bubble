@@ -17,14 +17,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: Image(
+          image: AssetImage('assets/images/1.png'),
           height: 100,
           width: 100,
-          image: AssetImage(
-            'assets/images/1.png',
-          ),
         ),
-        centerTitle: true,
       ),
       body: Container(
         width: double.infinity,
@@ -33,10 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 10,
+              height: 30,
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -143,12 +141,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            auth.signInWithEmailAndPassword(
-                                email: _email, password: _password);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegisterWidget()));
+                            FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: _email, password: _password)
+                                .then((FirebaseUser) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RegisterWidget()));
+                            }).catchError((e) {
+                              print(e);
+                            });
                           },
                           child: Container(
                             height: 50,

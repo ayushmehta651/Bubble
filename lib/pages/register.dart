@@ -1,4 +1,6 @@
+import 'package:Bubble/homePage.dart';
 import 'package:Bubble/pages/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,6 +13,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String _email, _password;
   final auth = FirebaseAuth.instance;
   bool show = true;
+  final _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -141,24 +144,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        GestureDetector(
-                          onTap: () {
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => LoginScreen()));
                           },
-                          child: RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
-                            },
-                            color: Color(0xFF3A539B),
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                          color: Color(0xFF3A539B),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
                             ),
                           ),
                         ),
@@ -174,10 +171,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            auth.createUserWithEmailAndPassword(
-                                email: _email, password: _password);
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: _email, password: _password)
+                                .then((signedinuser) {
+                              _firestore.collection('users').add({
+                                'email': _email,
+                                'password': _password
+                              }).then((value) {
+                                if (signedinuser != null) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                                }
+                              }).catchError((e) {
+                                print(e);
+                              });
+                            }).catchError((e) {
+                              print(e);
+                            });
                           },
                           child: Container(
                             height: 50,
