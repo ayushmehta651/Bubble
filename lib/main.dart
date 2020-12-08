@@ -1,8 +1,6 @@
+import 'package:Bubble/pages/register.dart';
 import 'package:flutter/material.dart';
-import './homePage.dart';
-import 'homePage.dart';
-import 'models/Post.dart';
-import './pages/register-acc-page.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -39,7 +37,7 @@ class _myAppState extends State<myApp> {
         ),
       ),
       routes: {
-        'home':(context)=> HomePage(),
+        'home': (context) => RegisterScreen(),
       },
       initialRoute: 'home',
     );
