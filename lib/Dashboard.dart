@@ -5,20 +5,15 @@ import 'package:Bubble/pages/posting-pages/posting-screen-activity.dart';
 import 'package:Bubble/pages/posting-pages/posting-screen-lf.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/cupertino.dart';
-
-import './browse.dart';
 import 'models/Post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:Bubble/postingScreen.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:Bubble/services/crud.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Bubble/custom-widgets/activityCard.dart';
 import 'package:Bubble/custom-widgets/generalCard.dart';
 import 'package:Bubble/custom-widgets/lostAndFound.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -38,7 +33,6 @@ class _DashboardState extends State<Dashboard> {
             child: StreamBuilder(
               stream: FirebaseFirestore.instance.collection("post").snapshots(),
               builder: (context, snapshot) {
-
                 if (snapshot.data == null)
                   return Center(child: CircularProgressIndicator());
                 return Container(
@@ -47,32 +41,43 @@ class _DashboardState extends State<Dashboard> {
                     itemCount: snapshot.data.docs.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-
                       return giveMeWidget(Post(
                         caption: snapshot.data.docs[index].data()['caption'],
                         userName: snapshot.data.docs[index].data()['userName'],
-                        userHandle: snapshot.data.docs[index].data()['userHandle'],
-                        activityName: snapshot.data.docs[index].data()['activityName'],
+                        userHandle:
+                            snapshot.data.docs[index].data()['userHandle'],
+                        activityName:
+                            snapshot.data.docs[index].data()['activityName'],
                         when: snapshot.data.docs[index].data()['when'],
                         where: snapshot.data.docs[index].data()['where'],
                         tagName: snapshot.data.docs[index].data()['tagName'],
-                        avatarUrl: snapshot.data.docs[index].data()['avatarUrl'],
+                        avatarUrl:
+                            snapshot.data.docs[index].data()['avatarUrl'],
                         imageUrl: snapshot.data.docs[index].data()['imageUrl'],
-                        likes: int.parse(snapshot.data.docs[index].data()['likes']) ,
+                        likes: int.parse(
+                            snapshot.data.docs[index].data()['likes']),
                         // liked: snapshot.data.docs[index].data()['liked'],
                         liked: false,
-                        timeStamp: snapshot.data.docs[index].data()['timeStamp'],
+                        timeStamp:
+                            snapshot.data.docs[index].data()['timeStamp'],
 
-                        option1Text: snapshot.data.docs[index].data()['option1Text'],
-                        option2Text: snapshot.data.docs[index].data()['option2Text'],
-                        option3Text: snapshot.data.docs[index].data()['option3Text'],
-                        option4Text: snapshot.data.docs[index].data()['option4Text'],
+                        option1Text:
+                            snapshot.data.docs[index].data()['option1Text'],
+                        option2Text:
+                            snapshot.data.docs[index].data()['option2Text'],
+                        option3Text:
+                            snapshot.data.docs[index].data()['option3Text'],
+                        option4Text:
+                            snapshot.data.docs[index].data()['option4Text'],
 
-                        option1Count: int.parse(snapshot.data.docs[index].data()['option1Count']),
-                        option2Count: int.parse(snapshot.data.docs[index].data()['option2Count']),
-                        option3Count: int.parse(snapshot.data.docs[index].data()['option3Count']),
-                        option4Count: int.parse(snapshot.data.docs[index].data()['option4Count']),
-
+                        option1Count: int.parse(
+                            snapshot.data.docs[index].data()['option1Count']),
+                        option2Count: int.parse(
+                            snapshot.data.docs[index].data()['option2Count']),
+                        option3Count: int.parse(
+                            snapshot.data.docs[index].data()['option3Count']),
+                        option4Count: int.parse(
+                            snapshot.data.docs[index].data()['option4Count']),
                       ));
                     },
                   ),
@@ -85,7 +90,6 @@ class _DashboardState extends State<Dashboard> {
     ));
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,60 +100,74 @@ class _DashboardState extends State<Dashboard> {
           child: Image.asset('assets/images/banner_white.png'),
         ),
         leadingWidth: 100,
-
       ),
       backgroundColor: Color(0xFFEBF2FA),
       body: postList(),
-
-
       floatingActionButton: FabCircularMenu(
         // ringDiameter: MediaQuery.of(context).size.width * 0.5,
         // ringWidth: MediaQuery.of(context).size.width * 0.5,
         ringColor: Colors.black,
         fabOpenColor: Colors.white,
-        fabOpenIcon: Icon(Icons.add, color: Colors.white,),
+        fabOpenIcon: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         children: [
-
           /*General Post*/
           FlatButton(
-            child: Text("General", style: TextStyle(color: Colors.white),),
+            child: Text(
+              "General",
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GeneralPostingScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GeneralPostingScreen()));
             },
           ),
 
           /*Lost and found post*/
           FlatButton(
-            child: Text("L&F", style: TextStyle(color: Colors.white),),
+            child: Text(
+              "L&F",
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LostFoundPostingScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LostFoundPostingScreen()));
             },
           ),
 
           /*Activity*/
           FlatButton(
-            child: Text("Activity", style: TextStyle(color: Colors.white),),
+            child: Text(
+              "Activity",
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ActivityPostingScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ActivityPostingScreen()));
             },
           ),
 
           /*Poll*/
           FlatButton(
-            child: Text("Poll", style: TextStyle(color: Colors.white),),
-            onPressed: (){
+            child: Text(
+              "Poll",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => PollPostingScreen()));
             },
           ),
-
         ],
       ),
-
-
     );
   }
 
@@ -167,10 +185,10 @@ class _DashboardState extends State<Dashboard> {
       return GeneralCard(
         post: curPost,
       );
-    } else if(curPost.tagName == "Poll"){
-      return PollCard(post: curPost,);
+    } else if (curPost.tagName == "Poll") {
+      return PollCard(
+        post: curPost,
+      );
     }
   }
 }
-
-
