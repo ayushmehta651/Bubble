@@ -57,10 +57,10 @@ class _DashboardState extends State<Dashboard> {
                         likes: int.parse(
                             snapshot.data.docs[index].data()['likes']),
                         // liked: snapshot.data.docs[index].data()['liked'],
+                        uid: snapshot.data.docs[index].data()['uid'],
                         liked: false,
                         timeStamp:
                             snapshot.data.docs[index].data()['timeStamp'],
-
                         option1Text:
                             snapshot.data.docs[index].data()['option1Text'],
                         option2Text:
@@ -70,14 +70,14 @@ class _DashboardState extends State<Dashboard> {
                         option4Text:
                             snapshot.data.docs[index].data()['option4Text'],
 
-                        option1Count: int.parse(
-                            snapshot.data.docs[index].data()['option1Count']),
-                        option2Count: int.parse(
-                            snapshot.data.docs[index].data()['option2Count']),
-                        option3Count: int.parse(
-                            snapshot.data.docs[index].data()['option3Count']),
-                        option4Count: int.parse(
-                            snapshot.data.docs[index].data()['option4Count']),
+                        option1Count:
+                            snapshot.data.docs[index].data()['option1Count'],
+                        option2Count:
+                            snapshot.data.docs[index].data()['option2Count'],
+                        option3Count:
+                            snapshot.data.docs[index].data()['option3Count'],
+                        option4Count:
+                            snapshot.data.docs[index].data()['option4Count'],
                       ));
                     },
                   ),

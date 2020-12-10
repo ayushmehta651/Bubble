@@ -8,6 +8,7 @@ class Post {
   String tagName;
   String avatarUrl;
   String imageUrl;
+  String uid;
   int likes;
   bool liked;
   String timeStamp;
@@ -22,26 +23,26 @@ class Post {
   int option3Count;
   int option4Count;
 
-  Post({
-    this.caption,
-    this.userName,
-    this.userHandle,
-    this.activityName,
-    this.when,
-    this.where,
-    this.tagName,
-    this.avatarUrl,
-    this.imageUrl,
-    this.likes,
-    this.liked,
-    this.timeStamp,
-    this.option1Text,
-    this.option2Text,
-    this.option3Text,
-    this.option4Text,
-    this.option1Count,
-    this.option2Count,
-    this.option3Count,
-    this.option4Count
-  });
+  Post(
+      {this.caption,
+      this.userName,
+      this.userHandle,
+      this.activityName,
+      this.when,
+      this.where,
+      this.tagName,
+      this.avatarUrl,
+      this.imageUrl,
+      this.likes,
+      this.liked,
+      this.timeStamp,
+      this.option1Text,
+      this.option2Text,
+      this.option3Text,
+      this.option4Text,
+      this.option1Count,
+      this.option2Count,
+      this.option3Count,
+      this.option4Count,
+      this.uid});
 }
