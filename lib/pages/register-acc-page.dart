@@ -1,8 +1,59 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../homePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class RegisterWidget extends StatelessWidget {
+import 'package:image_picker/image_picker.dart';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:random_string/random_string.dart';
+
+import '../homePage.dart';
+import '../homePage.dart';
+import '../homePage.dart';
+import '../profile.dart';
+import '../profile.dart';
+import '../profile.dart';
+
+class RegisterWidget extends StatefulWidget {
+  @override
+  _RegisterWidgetState createState() => _RegisterWidgetState();
+}
+
+class _RegisterWidgetState extends State<RegisterWidget> {
+  final _auth = FirebaseAuth.instance;
+  String id;
+  String image =
+      'https://th.bing.com/th/id/OIP.Jf0NnGpH2AhNM3BtwZufwwHaJ4?w=131&h=180&c=7&o=5&dpr=1.25&pid=1.7';
+  TextEditingController name = TextEditingController();
+  TextEditingController description = TextEditingController();
+  TextEditingController interests = TextEditingController();
+  TextEditingController branch = TextEditingController();
+  File _image;
+  final picker = ImagePicker();
+  Future getimage() async {
+    var image1 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image1;
+    });
+  }
+
+  uploadpost() async {
+    Reference firebaseStorageRef = FirebaseStorage.instance
+        .ref()
+        .child("profile")
+        .child("${randomAlphaNumeric(9)}.jpg");
+    final UploadTask task = firebaseStorageRef.putFile(_image);
+    var downloadurl = await (await task.whenComplete(() => print('hello')))
+        .ref
+        .getDownloadURL();
+    image = downloadurl;
+    print(downloadurl);
+    print(image);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,56 +70,32 @@ class RegisterWidget extends StatelessWidget {
                   "😀 We want know to more about you 😀",
                   style: TextStyle(fontSize: 18),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(32),
-                  child: Center(
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 130,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 2,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://media-exp1.licdn.com/dms/image/C5603AQFMkzo1uC7mRg/profile-displayphoto-shrink_200_200/0?e=1610582400&v=beta&t=tvExMqlfIMaC0AihFtP1zGMj0fFVoiK3FzTiZRgoJGE"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 2,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.edit,
-                                size: 20,
-                              ),
-                              color: Theme.of(context).primaryColor,
-                              onPressed: () {},
-                            ),
-                          ),
-                        ),
-                      ],
+                SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    getimage();
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    radius: 75,
+                    child: ClipOval(
+                      child: SizedBox(
+                        height: 140,
+                        width: 140,
+                        child: (_image != null)
+                            ? Image.file(_image, fit: BoxFit.fill)
+                            : Image.network(image, fit: BoxFit.fill),
+                      ),
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
+                  controller: name,
                   decoration: InputDecoration(
                       hintText: "What do your friends call you? ",
                       labelText: "Nickname",
@@ -78,6 +105,7 @@ class RegisterWidget extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: description,
                   decoration: InputDecoration(
                       hintText: "Some words about you ",
                       labelText: "Bio",
@@ -87,6 +115,7 @@ class RegisterWidget extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: interests,
                   decoration: InputDecoration(
                       hintText: "What you love to do? ",
                       labelText: "Interests",
@@ -96,6 +125,7 @@ class RegisterWidget extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: branch,
                   decoration: InputDecoration(
                       hintText: "Divided by branches, united by Engineering",
                       labelText: "Branch",
@@ -105,9 +135,12 @@ class RegisterWidget extends StatelessWidget {
                   height: 40,
                 ),
                 FlatButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                  onPressed: () async {
+                    uploadpost();
+                    await create().whenComplete(() {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => HomePage(id: id)));
+                    });
                   },
                   icon: Icon(Icons.arrow_right),
                   label: Text("Get Started"),
@@ -124,5 +157,18 @@ class RegisterWidget extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  Future<void> create() async {
+    final docref = await FirebaseFirestore.instance.collection("profile").add({
+      'name': name.text,
+      'description': description.text,
+      'interests': interests.text,
+      'branch': branch.text,
+      'image': image,
+    });
+    id = docref.id;
+    print(id);
+    print(image);
   }
 }

@@ -10,6 +10,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:random_string/random_string.dart';
 
 class Profile extends StatefulWidget {
+  String id;
+  Profile({this.id});
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -17,9 +19,9 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   String image;
   final username = new TextEditingController();
-  final phone = new TextEditingController();
-  final password = new TextEditingController();
-  final hobbies = new TextEditingController();
+  final description = new TextEditingController();
+  final interests = new TextEditingController();
+  final branch = new TextEditingController();
   File _image;
   Future getimage() async {
     var image1 = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -51,27 +53,21 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     FirebaseFirestore.instance
-        .collection('account')
-        .where('username', isEqualTo: 'Pragna')
+        .collection('profile')
+        .doc(widget.id)
         .get()
-        .then((snapshot) {
-      if (snapshot != null) {
-        snapshot.docs.forEach((element) {
-          username.text = element.data()['username'];
-          password.text = element.data()['password'];
-          phone.text = element.data()['phone'];
-          hobbies.text = element.data()['hobbies'];
-          image = element.data()['image'];
-          print(username.text);
-          print(password.text);
-          print(phone.text);
-          print(hobbies.text);
-          print(image);
-        });
-      } else {
-        print('Data is Loading');
-      }
+        .then((DocumentSnapshot snapshot) {
+      username.text = snapshot['name'];
+      description.text = snapshot['description'];
+      interests.text = snapshot['interests'];
+      branch.text = snapshot['branch'];
+      image = snapshot['image'];
     });
+    print(username.text);
+    print(description.text);
+    print(interests.text);
+    print(branch.text);
+    print(image);
   }
 
   Widget build(BuildContext context) {
@@ -98,11 +94,15 @@ class _ProfileState extends State<Profile> {
         ],
       ),
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('account').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection('profile')
+              .doc(widget.id)
+              .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Text('no data');
             }
+            var user = snapshot.data;
             return GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();
@@ -137,8 +137,7 @@ class _ProfileState extends State<Profile> {
                             width: 170,
                             child: (_image != null)
                                 ? Image.file(_image, fit: BoxFit.fill)
-                                : Image.network(
-                                    snapshot.data.documents[0]['image'],
+                                : Image.network(user['image'],
                                     fit: BoxFit.fill),
                           ),
                         ),
@@ -160,7 +159,7 @@ class _ProfileState extends State<Profile> {
                                 ? Color(0xffebf2fa)
                                 : Colors.grey[850],
                           ),
-                          hintText: snapshot.data.documents[0]['username'],
+                          hintText: user['name'],
                           hintStyle: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -177,18 +176,18 @@ class _ProfileState extends State<Profile> {
                       child: TextField(
                         cursorColor:
                             darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                        controller: phone,
+                        controller: description,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(bottom: 3),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: "Number",
+                          labelText: "Bio",
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat-SemiBold',
                             color: darktheme
                                 ? Color(0xffebf2fa)
                                 : Colors.grey[850],
                           ),
-                          hintText: snapshot.data.documents[0]['phone'],
+                          hintText: user['description'],
                           hintStyle: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -205,30 +204,18 @@ class _ProfileState extends State<Profile> {
                       child: TextField(
                         cursorColor:
                             darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                        controller: password,
-                        obscureText: show,
+                        controller: interests,
                         decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.remove_red_eye),
-                            color: darktheme
-                                ? Color(0xffebf2fa)
-                                : Colors.grey[850],
-                            onPressed: () {
-                              setState(() {
-                                show = !show;
-                              });
-                            },
-                          ),
                           contentPadding: EdgeInsets.only(bottom: 3),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: "Password",
+                          labelText: "Interests",
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat-SemiBold',
                             color: darktheme
                                 ? Color(0xffebf2fa)
                                 : Colors.grey[850],
                           ),
-                          hintText: snapshot.data.documents[0]['password'],
+                          hintText: user['interests'],
                           hintStyle: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -245,18 +232,18 @@ class _ProfileState extends State<Profile> {
                       child: TextField(
                         cursorColor:
                             darktheme ? Color(0xffebf2fa) : Colors.grey[850],
-                        controller: hobbies,
+                        controller: branch,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(bottom: 3),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: "Interests",
+                          labelText: "Branch",
                           labelStyle: TextStyle(
                             fontFamily: 'Montserrat-SemiBold',
                             color: darktheme
                                 ? Color(0xffebf2fa)
                                 : Colors.grey[850],
                           ),
-                          hintText: snapshot.data.documents[0]['hobbies'],
+                          hintText: user['branch'],
                           hintStyle: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -299,10 +286,10 @@ class _ProfileState extends State<Profile> {
                             color: darktheme
                                 ? Color(0xffebf2fa)
                                 : Colors.grey[850],
-                            onPressed: () {
+                            onPressed: () async {
                               uploadpost();
-                              ok(username.text, password.text, phone.text,
-                                  hobbies.text, image);
+                              await ok(username.text, description.text,
+                                  interests.text, branch.text, image);
                             },
                             child: Text(
                               'SAVE',
@@ -327,17 +314,18 @@ class _ProfileState extends State<Profile> {
 
   Future<void> ok(String text1, String text2, String text3, String text4,
       String text5) async {
-    await Firebase.initializeApp();
-
-    CollectionReference ref = FirebaseFirestore.instance.collection('account');
-    ref.doc('5678').update({
+    CollectionReference ref = FirebaseFirestore.instance.collection('profile');
+    ref.doc(widget.id).update({
       'username': username.text,
-      'password': password.text,
-      'phone': phone.text,
-      'hobbies': hobbies.text,
+      'description': description.text,
+      'interests': interests.text,
+      'branch': branch.text,
       'image': image,
     }).then((value) {
       print(username.text);
+      print(description.text);
+      print(interests.text);
+      print(branch.text);
       print(image);
     });
   }

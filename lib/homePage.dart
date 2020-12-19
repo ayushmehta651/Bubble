@@ -7,13 +7,18 @@ import 'package:line_icons/line_icons.dart';
 import './Dashboard.dart';
 import './browse.dart';
 import './instagram_ui_clone/instagram_main.dart';
+import 'profile.dart';
 
 class HomePage extends StatefulWidget {
+  String id;
+  HomePage({this.id});
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  String text1 = "Hello";
+
   int _index = 0;
 
   List<Color> colors = [
@@ -22,15 +27,23 @@ class _HomePageState extends State<HomePage> {
     Colors.blue,
     Colors.purple,
   ];
-  List<Widget> text = [
-    Dashboard(),
-    BrowseApp(),
-    InstagramMain(),
-    Profile(),
-  ];
+  List<Widget> _text() => [
+        Dashboard(),
+        BrowseApp(),
+        InstagramMain(),
+        Profile(id: widget.id),
+      ];
+
   PageController controller = PageController();
   @override
+  void initState() {
+    print(widget.id);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final List<Widget> text = _text();
     return Scaffold(
       body: PageView.builder(
         itemCount: 5,
